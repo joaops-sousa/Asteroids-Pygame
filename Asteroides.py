@@ -31,6 +31,10 @@ sound.set_volume(1)
 boom= pygame.mixer.Sound("Som/boom.wav")
 smash = pygame.mixer.Sound("Som/smash.wav")
 smash.set_volume(10)
+
+explosao = pygame.image.load("Imagens/kaboom.png").convert()
+explosao = pygame.transform.scale(explosao,(55,55))
+
 #Variavel Nave
 
 x_speed = 0
@@ -193,6 +197,7 @@ while done:
             x_m1 = random.randint(1,100)
             y_m1 = -40
             boom.play()
+            screen.blit(explosao,[x_nave,y_nave])
             pygame.time.delay(200)
 
     if x_m2+18>= x_nave and x_m2-18<= x_nave+55:
@@ -201,6 +206,7 @@ while done:
             x_m2 = random.randint(110,230)
             y_m2 = -10
             boom.play()
+            screen.blit(explosao,[x_nave,y_nave])
             pygame.time.delay(200)
 
     if x_m3+18>= x_nave and x_m3-18<= x_nave+55:
@@ -209,6 +215,7 @@ while done:
             x_m3 = random.randint(240,360)
             y_m3 = 0
             boom.play()
+            screen.blit(explosao,[x_nave,y_nave])
             pygame.time.delay(200)
 
     if x_m4+18>= x_nave and x_m4-18<= x_nave+55:
@@ -217,6 +224,7 @@ while done:
             x_m4 = random.randint(370,490)
             y_m4 = 20
             boom.play()
+            screen.blit(explosao,[x_nave,y_nave])
             pygame.time.delay(200)
 
     if x_m5+18>= x_nave and x_m5-18<= x_nave+55:
@@ -225,6 +233,7 @@ while done:
             x_m5 = random.randint(500,590)
             y_m5 = -80
             boom.play()
+            screen.blit(explosao,[x_nave,y_nave])
             pygame.time.delay(200)
 
     #tiro
@@ -297,7 +306,7 @@ while done:
     screen.blit(text,[560,20])
 
     if vida == -1:
-        pygame.time.delay(3000)
+        pygame.time.delay(1500)
         break
     
     if vida == 3:
