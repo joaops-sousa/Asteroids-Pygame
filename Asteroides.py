@@ -48,7 +48,7 @@ def meteoro1 (screen,x,y):
     pygame.draw.circle(screen,WHITE,[x,y],35,0)
 
     if y_m1 <= 590:
-        y_m1 += 5
+        y_m1 += 6
     else:
         x_m1 = random.randint(1,100)
         y_m1 = 0
@@ -60,7 +60,7 @@ def meteoro2 (screen,x,y):
     pygame.draw.circle(screen,WHITE,[x,y],35,0)
 
     if y_m2 <= 590:
-        y_m2 += 4
+        y_m2 += 5
     else:
         x_m2 = random.randint(110,230)
         y_m2 = 0
@@ -72,7 +72,7 @@ def meteoro3 (screen,x,y):
     pygame.draw.circle(screen,WHITE,[x,y],35,0)
 
     if y_m3 <= 590:
-        y_m3 += 4
+        y_m3 += 5
     else:
         x_m3 = random.randint(240,360)
         y_m3 = 0
@@ -84,7 +84,7 @@ def meteoro4 (screen,x,y):
     pygame.draw.circle(screen,WHITE,[x,y],35,0)
 
     if y_m4 <= 590:
-        y_m4 += 5
+        y_m4 += 6
     else:
         x_m4 = random.randint(370,490)
         y_m4 = 0
@@ -96,7 +96,7 @@ def meteoro5 (screen,x,y):
     pygame.draw.circle(screen,WHITE,[x,y],35,0)
 
     if y_m5 <= 590:
-        y_m5 += 4
+        y_m5 += 5
     else:
         x_m5 = random.randint(500,590)
         y_m5 = 0
@@ -193,7 +193,7 @@ while done:
             x_m1 = random.randint(1,100)
             y_m1 = -40
             boom.play()
-            pygame.time.delay(1000)
+            pygame.time.delay(200)
 
     if x_m2+18>= x_nave and x_m2-18<= x_nave+55:
         if y_nave - (y_m2+10) <= 1:
@@ -201,7 +201,7 @@ while done:
             x_m2 = random.randint(110,230)
             y_m2 = -10
             boom.play()
-            pygame.time.delay(1000)
+            pygame.time.delay(200)
 
     if x_m3+18>= x_nave and x_m3-18<= x_nave+55:
         if y_nave - (y_m3+10) <= 1:
@@ -209,7 +209,7 @@ while done:
             x_m3 = random.randint(240,360)
             y_m3 = 0
             boom.play()
-            pygame.time.delay(1000)
+            pygame.time.delay(200)
 
     if x_m4+18>= x_nave and x_m4-18<= x_nave+55:
         if y_nave - (y_m4+10) <= 1:
@@ -217,7 +217,7 @@ while done:
             x_m4 = random.randint(370,490)
             y_m4 = 20
             boom.play()
-            pygame.time.delay(1000)
+            pygame.time.delay(200)
 
     if x_m5+18>= x_nave and x_m5-18<= x_nave+55:
         if y_nave - (y_m5+10)<=1:
@@ -225,7 +225,7 @@ while done:
             x_m5 = random.randint(500,590)
             y_m5 = -80
             boom.play()
-            pygame.time.delay(1000)
+            pygame.time.delay(200)
 
     #tiro
 
