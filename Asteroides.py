@@ -35,6 +35,9 @@ smash.set_volume(10)
 explosao = pygame.image.load("Imagens/kaboom.png").convert()
 explosao = pygame.transform.scale(explosao,(55,55))
 
+meteoro = pygame.image.load("Imagens/meteoro.png").convert()
+meteoro = pygame.transform.scale(meteoro,(90,90))
+
 #Variavel Nave
 
 x_speed = 0
@@ -49,7 +52,7 @@ def meteoro1 (screen,x,y):
     global x_m1
     global y_m1
 
-    pygame.draw.circle(screen,WHITE,[x,y],35,0)
+    screen.blit(meteoro,[x,y])
 
     if y_m1 <= 590:
         y_m1 += 6
@@ -61,7 +64,7 @@ def meteoro2 (screen,x,y):
     global x_m2
     global y_m2
 
-    pygame.draw.circle(screen,WHITE,[x,y],35,0)
+    screen.blit(meteoro,[x,y])
 
     if y_m2 <= 590:
         y_m2 += 5
@@ -73,7 +76,7 @@ def meteoro3 (screen,x,y):
     global x_m3
     global y_m3
 
-    pygame.draw.circle(screen,WHITE,[x,y],35,0)
+    screen.blit(meteoro,[x,y])
 
     if y_m3 <= 590:
         y_m3 += 5
@@ -85,7 +88,7 @@ def meteoro4 (screen,x,y):
     global x_m4
     global y_m4
 
-    pygame.draw.circle(screen,WHITE,[x,y],35,0)
+    screen.blit(meteoro,[x,y])
 
     if y_m4 <= 590:
         y_m4 += 6
@@ -97,7 +100,7 @@ def meteoro5 (screen,x,y):
     global x_m5
     global y_m5
 
-    pygame.draw.circle(screen,WHITE,[x,y],35,0)
+    screen.blit(meteoro,[x,y])
 
     if y_m5 <= 590:
         y_m5 += 5
@@ -177,9 +180,8 @@ while done:
     elif x_nave>= 545:
         x_nave-=4
 
-    #carregar fundo e nave
+    #carregar fundo
     screen.blit(fundo,(0,0))
-    screen.blit(player,[x_nave,y_nave])
 
     #meteoro
     
@@ -189,37 +191,41 @@ while done:
     meteoro4(screen,x_m4,y_m4)
     meteoro5(screen,x_m5,y_m5)
 
+    #nave
+    
+    screen.blit(player,[x_nave,y_nave])
+    
     #Colisao Meteoro-Nave
 
-    if x_m1+18>=x_nave and x_m1-18<= x_nave+55:
-        if y_nave - (y_m1+10) <= 1:
-            vida -= 1
+    if x_m1<= x_nave+55 and x_m1+85>= x_nave:
+        if y_nave - (y_m1+70)<= 1:
+            vida -=1
             x_m1 = random.randint(1,100)
             y_m1 = -40
             boom.play()
             screen.blit(explosao,[x_nave,y_nave])
-            pygame.time.delay(200)
+            pygame.time.delay(300)
 
-    if x_m2+18>= x_nave and x_m2-18<= x_nave+55:
-        if y_nave - (y_m2+10) <= 1:
+    if x_m2<= x_nave+55 and x_m2+85>= x_nave:
+        if y_nave - (y_m2+70) <= 1:
             vida -= 1
             x_m2 = random.randint(110,230)
             y_m2 = -10
             boom.play()
             screen.blit(explosao,[x_nave,y_nave])
-            pygame.time.delay(200)
+            pygame.time.delay(300)
 
-    if x_m3+18>= x_nave and x_m3-18<= x_nave+55:
-        if y_nave - (y_m3+10) <= 1:
+    if x_m3<= x_nave+55 and x_m3+85>= x_nave:
+        if y_nave - (y_m3+70) <= 1:
             vida -= 1
             x_m3 = random.randint(240,360)
             y_m3 = 0
             boom.play()
             screen.blit(explosao,[x_nave,y_nave])
-            pygame.time.delay(200)
+            pygame.time.delay(300)
 
-    if x_m4+18>= x_nave and x_m4-18<= x_nave+55:
-        if y_nave - (y_m4+10) <= 1:
+    if x_m4<= x_nave+55 and x_m4+85>= x_nave:
+        if y_nave - (y_m4+70) <= 1:
             vida -=1
             x_m4 = random.randint(370,490)
             y_m4 = 20
@@ -227,14 +233,14 @@ while done:
             screen.blit(explosao,[x_nave,y_nave])
             pygame.time.delay(200)
 
-    if x_m5+18>= x_nave and x_m5-18<= x_nave+55:
-        if y_nave - (y_m5+10)<=1:
+    if x_m5<= x_nave+55 and x_m5+85>= x_nave:
+        if y_nave - (y_m5+70)<=1:
             vida -=1
             x_m5 = random.randint(500,590)
             y_m5 = -80
             boom.play()
             screen.blit(explosao,[x_nave,y_nave])
-            pygame.time.delay(200)
+            pygame.time.delay(300)
 
     #tiro
 
@@ -252,8 +258,8 @@ while done:
 
     if t == 1:
         
-        if xt+1>=(x_m1-38) and xt+1<=(x_m1+38):
-            if yt - (y_m1+18) <= 6:
+        if x_m1<= xt+1 and x_m1+90>= xt:
+            if yt - (y_m1+77) <= 1:
                 pontos += 1
                 t = 0
                 yt = y_nave - 20
@@ -262,8 +268,8 @@ while done:
                 smash.play()
                 
         
-        if xt+1>=(x_m2-38) and xt+1<=(x_m2+38):
-            if yt - (y_m2+18)<= 6:
+        if x_m2<= xt+1 and x_m2+90>=xt:
+            if yt - (y_m2+77)<= 1:
                 pontos += 1
                 t = 0
                 yt = y_nave - 20
@@ -272,8 +278,8 @@ while done:
                 y_m2 = -10
                 smash.play()
 
-        if xt+1 >=(x_m3-38) and xt+1<=(x_m3+38):
-            if yt - (y_m3+18) <= 6:
+        if x_m3<= xt+1 and x_m3+90>=xt:
+            if yt - (y_m3+77) <= 1:
                 pontos += 1
                 t = 0
                 yt = y_nave-20
@@ -282,8 +288,8 @@ while done:
                 y_m3 = 0
                 smash.play()
 
-        if xt+1 >= (x_m4-38) and xt+1 <= (x_m4+38):
-            if yt - (y_m4+18) <= 6:
+        if x_m4<= xt+1 and x_m4+90>=xt:
+            if yt - (y_m4+77) <= 1:
                 pontos += 1
                 t = 0
                 yt = y_nave-20
@@ -292,8 +298,8 @@ while done:
                 y_m4 = 20
                 smash.play()
 
-        if xt+1 >= (x_m5-38) and xt+1 <= (x_m5+38):
-            if yt - (y_m5+18) <= 6:
+        if x_m5<= xt+1 and x_m5+90>=xt:
+            if yt - (y_m5+77) <= 1:
                 pontos += 1
                 t = 0
                 yt = y_nave-20
@@ -302,9 +308,11 @@ while done:
                 y_m5 = -80
                 smash.play()
 
+    #pontos
     text = font.render(str(pontos),True,BLUE)
     screen.blit(text,[560,20])
 
+    #game over
     if vida == -1:
         pygame.time.delay(1500)
         break
@@ -322,7 +330,8 @@ while done:
         gameover = font.render("GAME OVER",True,RED)
         screen.blit(gameover,[175,280])
         vida = -1
-            
+
+    
     pygame.display.flip()
 
     clock.tick(60)
