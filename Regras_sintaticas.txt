@@ -1,0 +1,163 @@
+'abc' = notacao para token
+
+========= SINTAXE ===========
+
+1) <programa> := { <declaracoes de funcoes> } program <identificador> <bloco>
+	
+	<programa> -> <programa_linha> 'program'  <identificador> <bloco>  /* Tem recursão a esquerda? */
+
+	<programa_linha> -> e
+	<programa_linha> -> <declarações de funções> <programa_linha>
+
+2) <bloco> := '{' [ <parte declarações de variaveis> ] <comando proposto> '}'
+	
+	<bloco> -> '{' <bloco_linha> <comando proposto> '}'
+
+	<bloco_linha> -> e /* vazio */
+	<bloco_linha> -> <parte declarações de variaveis>
+
+======== DECLARAÇÕES =========
+
+3) <parte declarações de variaveis> := <declarações de variaveis> { <declaracoes de variaveis> }
+	
+	<parte declarações de variaveis> -> <declaração de variaveis> <parte declarações_linha>
+
+	<parte declarações_linha> -> e
+	<parte declarações_linha> -> <declaração de variaveis> <parte declarações_linha>
+
+4) <declaração de variaveis> := ( 'int' | 'bool' ) <lista de identificadores> ';'
+	
+	<declaração de variaveis> -> 'int' <lista de identificadores>
+	<declaração de variaveis> -> 'bool' <lista de identificadores> 
+
+5) <lista de identificadores> := <identificador> [ ',' <identificador> ]
+
+	<lista de identificadores> ->  <identificador> <lista de identificadores_linha>
+
+	<linha de identificadores_linha> -> e
+	<linha de identificadores_linha> -> ',' <identificador>  /* apenas opcional ou também deve ser repetido? */
+
+6) <declaração de funções> := { <declara função> }
+	
+	<declaração de funções> -> e
+	<declaração de funções> -> <declara função> <declaração de funções>
+
+7) <declara função> := 'void' <identificador> '(' [ <parâmetro formal> ] ')' <bloco> 
+
+	<declara função> -> 'void' <identificador> '(' <declara função_linha> ')' <bloco>  /* opcional ou repetitivo */
+
+	<declara função_linha> -> e
+	<declara função_linha> -> <parametro formal>  
+	
+8) <parametro formal> := ( 'int' | 'bool' ) <identificador>
+
+	<parametro formal> -> 'int' <identificador>
+	<parametro formal> -> 'bool' <identificador> 
+
+========= COMANDOS ========
+
+9) <comando proposto> := <comando> ';' [ <comando> ';' ]
+	
+	<comando proposto> -> <comando> ';' <comando proposto_linha>
+
+	<comando proposto_linha> -> e 
+	<comando proposto_linha> -> <comando> ';' 
+
+10) <comando> := <atribuição> | <chamada de procedimento> | <comando condicional> | <comando repetitivo> | 'print' ( <identificador> ) 
+	
+	<comando> -> <atribuição> 
+	<comando> -> <chamada de procedimento>
+	<comando> -> <comando condicional>
+	<comando> -> <comando repetitivo>
+	<comando> -> 'print' '(' <identificador> ')' /* O comando print tem q receber os tokens de parenteses ou é notação */
+
+11) <atribuição> := <variavel> '=' <expressão>
+	
+	<atribuição> -> <variável> '=' <expressão> 
+
+12) <chamada de procedimento> := <identificador> '(' [ <parametro> ] ')'
+	
+	<chamada de procedimento> -> <identificador> '(' <chamada de procedimento_linha> ')' /* opcional ou repetitivo */
+
+	<chamada de procedimento_linha> -> e
+	<chamada de procedimento_linha> -> <parametro> 
+
+13) <parametro> := [ (<identificador> | <número> | <bool>) ]
+	
+	<parametro> -> e
+	<parametro> -> <identificador>
+	<parametro> -> <número>
+	<parametro> -> <bool>
+
+14) <comando condicional> := 'if' '(' <expressão> ')' '{' <comando composto> '}' [ 'else' '{' <comando composto> '}' ]
+	
+	<comando condicional> -> 'if' '(' <expressão> ')' '{' <comando composto> '}' <comando condicional_linha>
+	
+	<comando condicional_linha> -> e
+	<comando condicional_linha> -> 'else' '{' <comando composto> '}' 
+
+15) <comando repetitivo> := 'do' '{' <comando composto> '}' 'while' '(' <expressão> ')'
+	
+	<comando repetitivo> -> 'do' '(' <comando composto> '}' 'while' '(' <expressão> ')'
+
+============= EXPRESSÕES ======================
+
+16) <expressão> := <expressão simples> [ <relação> <expressão simples> ]
+
+	<expressão> -> <expressão simples> <expressão_linha>
+
+	<expressão_linha> -> e
+	<expressão_linha> -> <relação> <expressão simples>
+
+17) <relação> := '==' | '<>' | '<' | '<=' | '>=' | '>'
+
+	<relação> -> '=='
+	<relação> -> '<>'
+	<relação> -> '<'
+	<relação> -> '<='
+	<relação> -> '>='
+	<relação> -> '>'
+
+18) <expressão simples> := ['+' | '-' ] <termo> { ['+' | '-'] <termo> }
+
+	<expressão simples> -> <L> <termo> <R>
+	
+	<L> -> e
+	<L> -> '+'
+	<L> -> '-'
+	
+	<R> -> e
+	<R> -> <L> <termo> <R>
+
+19) <termo> := <fator> { ( '*' | '/' ) <fator> }
+	
+	<termo> -> <fator> <termo_linha>
+
+	<termo_linha> -> '*' <fator> <termo_linha>
+	<termo_linha> -> '/' <fator> <termo_linha> /* posso separar dessa forma? */ 
+
+20) <fator> := <variavel> | <número> | <bool> | '(' <expressão simples> ')'
+
+	<fator> -> <variavel>
+	<fator> -> <número> 
+	<fator> -> <bool>
+	<fator> -> '(' <expressão simples> ')'
+
+21) <variavel> := <identificador>
+	
+	<variavel> -> <identificador>
+
+========== NÚMEROS E IDENTIFICADORES =========
+
+22) <bool> := 'true' | 'false'
+	
+	<bool> -> 'true'
+	<bool> -> 'false'
+
+23) <número> := 'num'
+
+	<número> -> 'num'
+
+24) <identificador> := 'id'
+	
+	<identificador> -> 'id'
